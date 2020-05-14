@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CelsE.Web.Data.Entity.ParteEntity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Crear nuevo</a>
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Partes</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="Tabla">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaInicio)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Observaciones)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MedidasAdoptadas)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observaciones)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MedidasAdoptadas)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar<i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info">Detalles<i class="glyphicon glyphicon glyphicon-align-justify"></i></a>
+                                    <button data-id="@item.ID" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Borrar<i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Tabla').DataTable();
+            // Delete item
+            var item_to_delete;
+
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Partes/Delete/' + item_to_delete;
+            });
+        });
+    </script>
+}
