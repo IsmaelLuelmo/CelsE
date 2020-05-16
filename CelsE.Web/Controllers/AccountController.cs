@@ -56,6 +56,11 @@
             await userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
         #endregion
     }
 }
