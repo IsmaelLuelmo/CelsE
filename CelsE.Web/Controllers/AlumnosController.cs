@@ -42,13 +42,29 @@
 
             return View(alumnoEntity);
         }
+        // GET: Alumnos/Create
+        public async Task<IActionResult> CreateParte(int id)
+        {
+            var alumnoEntity = await _context.Alumnos
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (alumnoEntity == null)
+            {
+                return NotFound();
+            }
+
+            
+            return RedirectToAction("Create", "Partes", new { id = alumnoEntity.ID });
+            //return RedirectToAction("Create", "Partes", alumnoEntity); 
+        }
+
 
         // GET: Alumnos/Create
         public IActionResult Create()
         {
             return View();
         }
-
+        
         // POST: Alumnos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

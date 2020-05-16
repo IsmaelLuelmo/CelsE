@@ -7,6 +7,7 @@
     using CelsE.Web.Data;
     using CelsE.Web.Data.Entity;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
     [Authorize(Roles = "Admin, Profesores")]
     public class PartesController : Controller
@@ -43,8 +44,25 @@
         }
 
         // GET: Partes/Create
-        public IActionResult Create()
+        //id es el número ID del alumno
+        public async Task<IActionResult> Create(int? id)
         {
+            if(id==null)
+            {
+                return NotFound();
+            }
+
+            var alumnoEntity = await _context.Alumnos
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (alumnoEntity == null)
+            {
+                return NotFound();
+            }
+
+            //Asignamos el alumno al parte
+            ViewBag.Nombre = alumnoEntity.Nombre + " " + alumnoEntity.Apellidos;
+            ViewBag.DNI = alumnoEntity.DNI;
+
             return View();
         }
 
@@ -53,11 +71,28 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FechaInicio,Observaciones,MedidasAdoptadas")] ParteEntity parteEntity)
+        public async Task<IActionResult> Create(ParteEntity parteEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parteEntity);
+                //Buscamos el alumno del parte
+                var alumnoEntity = await _context.Alumnos
+                .FirstOrDefaultAsync(m => m.ID == parteEntity.ID);
+                if (alumnoEntity == null)
+                {
+                    return NotFound();
+                }
+
+                //Generamos un nuevo parte
+                ParteEntity nuevoParte = new ParteEntity()
+                {
+                    FechaInicio = parteEntity.FechaInicio,
+                    Observaciones = parteEntity.Observaciones,
+                    MedidasAdoptadas = parteEntity.MedidasAdoptadas,
+                    Alumno = alumnoEntity,
+                };
+
+                _context.Add(nuevoParte);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
