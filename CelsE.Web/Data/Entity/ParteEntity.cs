@@ -29,6 +29,9 @@
         [DataType(DataType.MultilineText)]
         public string MedidasAdoptadas { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        public string ComunicacionPadres { get; set; }
+
         //Con esta propiedad ya queda definido el profesor que pone el parte
         public ProfesorEntity Profesor { get; set; }
 

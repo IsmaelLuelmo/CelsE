@@ -22,7 +22,9 @@
         // GET: Partes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Parte.ToListAsync());
+            return View(await _context.Parte
+                .Include(p => p.Alumno)
+                .ToListAsync());
         }
 
         // GET: Partes/Details/5
@@ -43,7 +45,7 @@
             return View(parteEntity);
         }
 
-        // GET: Partes/Create
+        // GET: Partes/Create 
         //id es el número ID del alumno
         public async Task<IActionResult> Create(int? id)
         {
@@ -66,9 +68,7 @@
             return View();
         }
 
-        // POST: Partes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Partes/Create de un alumno
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ParteEntity parteEntity)
@@ -89,6 +89,7 @@
                     FechaInicio = parteEntity.FechaInicio,
                     Observaciones = parteEntity.Observaciones,
                     MedidasAdoptadas = parteEntity.MedidasAdoptadas,
+                    ComunicacionPadres = parteEntity.ComunicacionPadres,
                     Alumno = alumnoEntity,
                 };
 
@@ -120,7 +121,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaInicio,Observaciones,MedidasAdoptadas")] ParteEntity parteEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaInicio,Observaciones,MedidasAdoptadas,ComunicacionPadres,Alumno, AlumnoID")] ParteEntity parteEntity)
         {
             if (id != parteEntity.ID)
             {

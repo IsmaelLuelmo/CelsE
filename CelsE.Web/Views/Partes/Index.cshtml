@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <br />
 
-<p>
-    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Crear nuevo</a>
-</p>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -21,13 +18,16 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.Alumno.DNI)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Alumno.Nombre)                                
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.FechaInicio)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Observaciones)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.MedidasAdoptadas)
                             </th>
                             <th></th>
                         </tr>
@@ -35,22 +35,25 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FechaInicio)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Observaciones)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MedidasAdoptadas)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar<i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info">Detalles<i class="glyphicon glyphicon glyphicon-align-justify"></i></a>
-                                    <button data-id="@item.ID" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Borrar<i class="glyphicon glyphicon-trash"></i></button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Alumno.DNI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Alumno.Nombre) @Html.DisplayFor(modelItem => item.Alumno.Apellidos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaInicio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Observaciones)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar<i class="glyphicon glyphicon-pencil"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info">Detalles<i class="glyphicon glyphicon glyphicon-align-justify"></i></a>
+                                <button data-id="@item.ID" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Borrar<i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
