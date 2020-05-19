@@ -8,6 +8,7 @@
     using CelsE.Web.Data;
     using CelsE.Web.Data.Entity;
     using Microsoft.AspNetCore.Authorization;
+    using System.Collections.Generic;
 
     [Authorize(Roles = "Admin, Profesores")]
     public class AlumnosController : Controller
@@ -40,8 +41,20 @@
                 return NotFound();
             }
 
+
+            var partesAlumno = _context.Parte.Where(m => m.Alumno.ID == id);
+            int i = 0;
+            List<string> campo = new List<string>();
+            foreach (ParteEntity parte in partesAlumno)
+            {
+                campo.Add(parte.ID.ToString() + "-" + parte.Observaciones);
+            }
+
+            ViewBag.campo = campo;
+
             return View(alumnoEntity);
         }
+
         // GET: Alumnos/Create
         public async Task<IActionResult> CreateParte(int id)
         {
@@ -57,6 +70,7 @@
             return RedirectToAction("Create", "Partes", new { id = alumnoEntity.ID });
             //return RedirectToAction("Create", "Partes", alumnoEntity); 
         }
+
 
 
         // GET: Alumnos/Create
@@ -203,5 +217,26 @@
         {
             return _context.Alumnos.Any(e => e.ID == id);
         }
+
+
+        /* public async Task<IActionResult> DetailsParte(int txt)
+         {
+             try
+             {
+                 //string ID = txt.Split('-')[0];
+                 return RedirectToAction("Details", "Partes/" + txt);
+             }
+             catch (Exception err)
+             {
+                 return NotFound();
+             }
+         }*/
+
+        public async Task<IActionResult> DetailsParte(string value)
+        {
+            string ID = value.Split('-')[0];
+            return RedirectToAction("Details/"+ID, "Partes");
+        }
+
     }
 }

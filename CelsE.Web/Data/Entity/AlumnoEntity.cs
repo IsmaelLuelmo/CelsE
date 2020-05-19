@@ -59,8 +59,7 @@
         [DataType(DataType.MultilineText)]
         public string Observaciones { get; set; }
 
-        //Conjunto de partes del alumno
-        public ICollection<ParteEntity> Partes { get; set; }
+        public UserEntity Usuario { get; set; }
         #endregion
     }
 }
