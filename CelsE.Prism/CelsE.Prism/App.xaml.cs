@@ -1,11 +1,11 @@
 using Prism;
 using Prism.Ioc;
 using CelsE.Prism.ViewModels;
-using CelsE.Prism.Views;
 using Xamarin.Essentials.Interfaces;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using CelsE.Prism.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CelsE.Prism
@@ -25,7 +25,7 @@ namespace CelsE.Prism
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("/CelsEMasterDetailPage/NavigationPage/HomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,7 +33,14 @@ namespace CelsE.Prism
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<CelsEMasterDetailPage, CelsEMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<CelsEHistoryPage, CelsEHistoryPageViewModel>();
+            containerRegistry.RegisterForNavigation<GroupPage, GroupPageViewModel>();
+            containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReportPage, ReportPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }
