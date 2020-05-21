@@ -26,13 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CelsE.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CelsE</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre nosotros</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contacto</a></li>
+                    }
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
@@ -41,7 +45,7 @@
                         <li><a asp-area="" asp-controller="Partes" asp-action="Index">Partes</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Index">Usuarios</a></li>
                     }
-                </ul>
+                    </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -65,7 +69,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2020 - CelsE.Web</p>
+            <p>&copy; 2020 - CelsE</p>
         </footer>
     </div>
 

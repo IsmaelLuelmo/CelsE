@@ -24,6 +24,7 @@
         {
             return View(await _context.Parte
                 .Include(p => p.Alumno)
+                .Include(p => p.Profesor)
                 .ToListAsync());
         }
 
@@ -36,6 +37,8 @@
             }
 
             var parteEntity = await _context.Parte
+                .Include(p => p.Alumno)
+                .Include(p => p.Profesor)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (parteEntity == null)
             {
@@ -109,10 +112,18 @@
             }
 
             var parteEntity = await _context.Parte.FindAsync(id);
+
+
             if (parteEntity == null)
             {
                 return NotFound();
             }
+
+            /*return View(await _context.Parte
+                .Include(p => p.Alumno)
+                .Include(p => p.Profesor)
+                .ToListAsync());*/
+
             return View(parteEntity);
         }
 
@@ -121,7 +132,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FechaInicio,Observaciones,MedidasAdoptadas,ComunicacionPadres,Alumno, AlumnoID")] ParteEntity parteEntity)
+        public async Task<IActionResult> Edit(int id, ParteEntity parteEntity)
         {
             if (id != parteEntity.ID)
             {

@@ -18,10 +18,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Alumno.DNI)
+                                Profesor
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Alumno.Nombre)                                
+                                Alumno                                
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.FechaInicio)
@@ -37,7 +37,7 @@
                         {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Alumno.DNI)
+                                @Html.DisplayFor(modelItem => item.Profesor.Nombre) @Html.DisplayFor(modelItem => item.Profesor.Apellidos)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Alumno.Nombre) @Html.DisplayFor(modelItem => item.Alumno.Apellidos)

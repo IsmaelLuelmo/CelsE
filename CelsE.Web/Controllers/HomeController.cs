@@ -17,14 +17,14 @@ namespace CelsE.Web.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Web de trabajo del IES Martínez Montañés";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "IES Martínez Montañés";
 
             return View();
         }

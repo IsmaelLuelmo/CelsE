@@ -26,7 +26,8 @@ namespace CelsE.Web.Controllers.API
         public IEnumerable<ParteEntity> GetParte()
         {
             return _context.Parte
-                .Include(p => p.Alumno);
+                .Include(p => p.Alumno)
+                .Include(p => p.Profesor);                
         }
 
         // GET: api/Partes/5

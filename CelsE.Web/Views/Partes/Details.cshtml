@@ -11,6 +11,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            <b style="font-size: 20px;">Alumno</b>
+        </dt>
+        <dd>
+            <b style="font-size: 20px;">@Html.DisplayFor(model => model.Alumno.Nombre)  @Html.DisplayFor(model => model.Alumno.Apellidos)</b>
+        </dd>
+        <dt>
+            Profesor
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profesor.Nombre) @Html.DisplayFor(model => model.Profesor.Apellidos)
+        </dd>
+        <br />
+        <dt>
             @Html.DisplayNameFor(model => model.FechaInicio)
         </dt>
         <dd>

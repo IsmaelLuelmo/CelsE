@@ -43,7 +43,7 @@
 
 
             var partesAlumno = _context.Parte.Where(m => m.Alumno.ID == id);
-            int i = 0;
+
             List<string> campo = new List<string>();
             foreach (ParteEntity parte in partesAlumno)
             {
@@ -65,7 +65,6 @@
             {
                 return NotFound();
             }
-
             
             return RedirectToAction("Create", "Partes", new { id = alumnoEntity.ID });
             //return RedirectToAction("Create", "Partes", alumnoEntity); 
@@ -184,58 +183,15 @@
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Alumnos/Delete/5
-        /*public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var alumnoEntity = await _context.alumnos
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (alumnoEntity == null)
-            {
-                return NotFound();
-            }
-
-            return View(alumnoEntity);
-        }
-
-        // POST: Alumnos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var alumnoEntity = await _context.alumnos.FindAsync(id);
-            _context.alumnos.Remove(alumnoEntity);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }*/
-
         private bool AlumnoEntityExists(int id)
         {
             return _context.Alumnos.Any(e => e.ID == id);
         }
 
-
-        /* public async Task<IActionResult> DetailsParte(int txt)
-         {
-             try
-             {
-                 //string ID = txt.Split('-')[0];
-                 return RedirectToAction("Details", "Partes/" + txt);
-             }
-             catch (Exception err)
-             {
-                 return NotFound();
-             }
-         }*/
-
-        public async Task<IActionResult> DetailsParte(string value)
+        public IActionResult DetailsParte(string value)
         {
             string ID = value.Split('-')[0];
-            return RedirectToAction("Details/"+ID, "Partes");
+            return RedirectToAction("Details/" + ID, "Partes");
         }
 
     }

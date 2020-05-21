@@ -9,6 +9,7 @@
     using CelsE.Web.Data.Entity;
     using Microsoft.AspNetCore.Authorization.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
+    using System.Collections.Generic;
 
     [Authorize(Roles = "Admin")]
     public class ProfesoresController : Controller
@@ -35,13 +36,23 @@
             }
 
             var profesorEntity = await _context.Profesor
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id); ;
             if (profesorEntity == null)
             {
                 return NotFound();
             }
 
-            return View(profesorEntity);
+            var partesAlumno = _context.Parte.Where(m => m.Profesor.ID == id);
+
+            List<string> campo = new List<string>();
+            foreach (ParteEntity parte in partesAlumno)
+            {
+                campo.Add(parte.ID.ToString() + "-" + parte.Observaciones);
+            }
+
+            ViewBag.campo = campo;
+
+            return View(profesorEntity);          
         }
 
         // GET: Profesores/Create
@@ -70,7 +81,7 @@
                 {
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya existe un alumno con ese DNI");
+                        ModelState.AddModelError(string.Empty, "Ya existe un profesor con ese DNI");
                     }
                     else
                     {
@@ -124,7 +135,7 @@
 
                     if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya existe un alumno con ese DNI");
+                        ModelState.AddModelError(string.Empty, "Ya existe un profesor con ese DNI");
                     }
                     else
                     {
@@ -155,38 +166,15 @@
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Profesores/Delete/5
-        /*public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var profesorEntity = await _context.ProfesorEntity
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (profesorEntity == null)
-            {
-                return NotFound();
-            }
-
-            return View(profesorEntity);
-        }*/
-
-        // POST: Profesores/Delete/5
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var profesorEntity = await _context.ProfesorEntity.FindAsync(id);
-            _context.ProfesorEntity.Remove(profesorEntity);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }*/
-
         private bool ProfesorEntityExists(int id)
         {
             return _context.Profesor.Any(e => e.ID == id);
+        }
+
+        public IActionResult DetailsParte(string value)
+        {
+            string ID = value.Split('-')[0];
+            return RedirectToAction("Details/" + ID, "Partes");
         }
     }
 }
