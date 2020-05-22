@@ -48,6 +48,13 @@ namespace CelsE.Web.Controllers.API
             if (parteEntity == null)
             {
                 return NotFound();
+                
+                /*var parteEntity1 = new ParteEntity
+                {
+                    Observaciones ="Gola"
+                };
+                _context.Parte.Add(parteEntity1);
+                await _context.SaveChangesAsync();*/
             }
 
             return Ok(parteEntity);
