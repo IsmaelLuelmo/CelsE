@@ -6,6 +6,7 @@ using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CelsE.Prism.Views;
+using CelsE.Common.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CelsE.Prism
@@ -30,10 +31,9 @@ namespace CelsE.Prism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IGeolocatorService, GeolocatorService>();
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-
             containerRegistry.RegisterForNavigation<NavigationPage>();
-
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<CelsEMasterDetailPage, CelsEMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<CelsEHistoryPage, CelsEHistoryPageViewModel>();
