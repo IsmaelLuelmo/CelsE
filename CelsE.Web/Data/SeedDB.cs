@@ -29,7 +29,7 @@
             //Chequea y matricula los 3 roles creados
             await CheckRolesAsync();
             //Ahora creamos los usuarios
-            var admin = await CheckUserAsync("48347524Y", "Ismael", "Luelmo", "Seguí", "ismael.luelmo@gmail.es", "660984094", "Calle Arquitecto Vidal", UserType.Admin);
+            var admin = await CheckUserAsync("48347524Y", "Ismael", "Luelmo", "Seguí", "usuario@gmail.com", "660984094", "Calle Arquitecto Vidal", UserType.Admin);
             await CheckBBDDAsync();
         }
 

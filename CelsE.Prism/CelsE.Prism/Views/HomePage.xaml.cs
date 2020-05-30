@@ -2,9 +2,9 @@
 using Plugin.Permissions.Abstractions;
 using System.Threading.Tasks;
 using CelsE.Common.Services;
-using Plugin.Permissions;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+
 
 namespace CelsE.Prism.Views
 {

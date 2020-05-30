@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"                
+             xmlns:prism="http://prismlibrary.com"
              x:Class="CelsE.Prism.App">
-  <Application.Resources>
+    <Application.Resources>
 
         <!-- Parameters -->
-        <x:String x:Key="UrlAPI">https://taxiweb2.azurewebsites.net/</x:String>
+        <x:String x:Key="UrlAPI">https://iesmartinezmon.mooo.com/</x:String>
 
     </Application.Resources>
 </prism:PrismApplication>

@@ -36,7 +36,6 @@
         public ProfesorEntity Profesor { get; set; }
 
         public AlumnoEntity Alumno { get; set; }
-
         #endregion
     }
 }

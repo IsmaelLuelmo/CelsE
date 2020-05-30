@@ -27,7 +27,7 @@ namespace CelsE.Web.Controllers.API
         {
             return _context.Parte
                 .Include(p => p.Alumno)
-                .Include(p => p.Profesor);                
+                .Include(p => p.Profesor);
         }
 
         // GET: api/Partes/5
@@ -43,6 +43,7 @@ namespace CelsE.Web.Controllers.API
 
             var parteEntity = await _context.Parte
                 .Include(p => p.Alumno)
+                .Include(p => p.Profesor)
                 .FirstOrDefaultAsync(p => p.ID == id);
 
             if (parteEntity == null)
